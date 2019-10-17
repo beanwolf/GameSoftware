@@ -27,10 +27,15 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Arrow"))
+        if (collision.gameObject.tag == "Arrow")
         {
             Destroy(collision.gameObject);
             GameManager.instance.deleteHeart();
+
+            if(GameManager.instance.heart == 0)
+            {
+                GameManager.instance.KillPlayer();
+            }
         }
 
     }

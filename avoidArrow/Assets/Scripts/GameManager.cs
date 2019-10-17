@@ -7,9 +7,10 @@ public class GameManager : MonoBehaviour
 {
 
     GameObject player;
-    int heart = 3;
+    public float heart = 3;
     public Text heartScore;
     public static GameManager instance;
+    public bool isPlayerAlive = true;
 
     private void Awake()
     {
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        Invoke("startGame", 1f);
+        Invoke("startGame", 2f);
     }
 
     void startGame()
@@ -31,10 +32,18 @@ public class GameManager : MonoBehaviour
         ArrowSpawn.instance.isSpawn = true;
     }
 
+    public void KillPlayer()
+    {
+        isPlayerAlive = false;
+        ArrowSpawn.instance.isSpawn = false;
+        TextController.instance.ShowGameOver();
+    }
+
     public void deleteHeart()
     {
-        heart = heart - 1 ;
+        heart = heart - 0.5f ;
         heartScore.text = "남은 목숨 : " + heart;
+        Debug.Log("delete Heart");
     }
 
 
